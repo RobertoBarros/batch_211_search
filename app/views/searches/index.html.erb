@@ -1,0 +1,33 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+
+      <%= form_tag searches_path, method: :get do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control",
+          placeholder: "Find a movie or serie"
+        %>
+      <% end %>
+
+
+    </div>
+  </div>
+
+
+
+
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <% @results.each do |result| %>
+
+        <%= render partial: 'movie', locals: { movie: Movie.find(result.searchable_id)} if result.searchable_type == 'Movie' %>
+
+        <%= render partial: 'serie', locals: { serie: Serie.find(result.searchable_id)} if result.searchable_type == 'Serie' %>
+
+
+      <% end %>
+    </div>
+  </div>
+</div>
